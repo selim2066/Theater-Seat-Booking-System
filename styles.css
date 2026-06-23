@@ -27,8 +27,10 @@
     /* Fonts */
     --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     
-    /* Dynamic heights for sticky footer */
-    --footer-height: 120px;
+    /* Mobile-first Defaults (Overridden in larger viewport queries) */
+    --seat-size: 22px;
+    --grid-gap: 5px;
+    --footer-height: 155px;
 }
 
 * {
@@ -67,37 +69,38 @@ body {
     background: rgba(255, 255, 255, 0.3);
 }
 
+/* Base Container (Mobile First) */
 .app-container {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    padding-bottom: calc(var(--footer-height) + 40px); /* Leave room for sticky footer */
+    padding: 12px;
+    padding-bottom: calc(var(--footer-height) + 20px); /* Leave room for sticky footer */
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
-/* Header Styles */
+/* Header Styles - Mobile First */
 .app-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .logo-container {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
+    gap: 8px;
+    margin-bottom: 4px;
 }
 
 .logo-icon {
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .logo-text {
-    font-size: 2.2rem;
+    font-size: 1.7rem;
     font-weight: 700;
     background: linear-gradient(135deg, #60a5fa, #3b82f6, #1d4ed8);
     -webkit-background-clip: text;
@@ -106,7 +109,7 @@ body {
 }
 
 .subtitle {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     font-weight: 300;
     letter-spacing: 0.05em;
@@ -122,28 +125,28 @@ body {
     animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Screen Styling */
+/* Screen Styling - Mobile First */
 .screen-container {
     width: 100%;
     max-width: 700px;
-    margin: 20px auto 45px auto;
+    margin: 15px auto 25px auto;
     perspective: 300px;
     text-align: center;
 }
 
 .screen {
     width: 100%;
-    height: 18px;
+    height: 16px;
     background: rgba(255, 255, 255, 0.03);
-    border-top: 3px solid rgba(96, 165, 250, 0.8);
+    border-top: 2.5px solid rgba(96, 165, 250, 0.8);
     border-radius: 50% / 100% 100% 0 0;
-    box-shadow: 0 -10px 20px rgba(96, 165, 250, 0.2);
+    box-shadow: 0 -8px 16px rgba(96, 165, 250, 0.2);
     transform: rotateX(-5deg);
     color: rgba(96, 165, 250, 0.5);
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 600;
     letter-spacing: 0.4em;
-    line-height: 18px;
+    line-height: 16px;
     text-transform: uppercase;
 }
 
@@ -152,28 +155,29 @@ body {
     top: 0;
     left: 10%;
     right: 10%;
-    height: 60px;
+    height: 45px;
     background: radial-gradient(ellipse at top, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
     pointer-events: none;
 }
 
-/* Seat Map Structure */
+/* Seat Map Structure - Mobile First */
 .seat-map-wrapper {
     width: 100%;
     overflow-x: auto;
-    padding: 10px 0 25px 0;
-    margin-bottom: 20px;
+    padding: 10px 0 20px 0;
+    margin-bottom: 15px;
     display: flex;
-    justify-content: center;
+    /* On mobile, justify flex-start prevents clipping during horizontal scroll overflow */
+    justify-content: flex-start;
 }
 
 .seat-grid {
     display: grid;
     /* 27 columns: Label + 25 Seats + Label */
-    grid-template-columns: 35px repeat(25, 28px) 35px;
-    grid-gap: 8px;
-    min-width: 820px;
-    padding: 10px 20px;
+    grid-template-columns: 24px repeat(25, var(--seat-size)) 24px;
+    grid-gap: var(--grid-gap);
+    min-width: 720px;
+    padding: 10px;
 }
 
 /* Grid Labels */
@@ -183,22 +187,22 @@ body {
     justify-content: center;
     font-weight: 600;
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     user-select: none;
 }
 
 .grid-label.column-header {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 500;
     color: rgba(156, 163, 175, 0.6);
-    padding-bottom: 5px;
+    padding-bottom: 3px;
 }
 
-/* Seat Items */
+/* Seat Items - Mobile First */
 .seat {
     aspect-ratio: 1;
-    border-radius: 6px;
-    font-size: 0.75rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -216,7 +220,7 @@ body {
     background-color: var(--color-available);
     border-color: var(--color-available-border);
     color: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 0 10px var(--color-available-glow);
+    box-shadow: 0 0 8px var(--color-available-glow);
 }
 
 .seat.available:hover {
@@ -233,7 +237,7 @@ body {
     border-color: var(--color-booked-border);
     color: #ffffff;
     cursor: not-allowed;
-    box-shadow: 0 0 12px var(--color-booked-glow);
+    box-shadow: 0 0 10px var(--color-booked-glow);
     animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -243,11 +247,11 @@ body {
     outline-offset: 2px;
 }
 
-/* Legend Styling */
+/* Legend Styling - Mobile First */
 .legend-container {
     display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 20px;
+    margin-bottom: 20px;
     justify-content: center;
     user-select: none;
 }
@@ -255,12 +259,12 @@ body {
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .legend-color {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border-radius: 4px;
     border: 1px solid transparent;
 }
@@ -268,57 +272,57 @@ body {
 .legend-color.seat-available {
     background-color: var(--color-available);
     border-color: var(--color-available-border);
-    box-shadow: 0 0 5px var(--color-available-glow);
+    box-shadow: 0 0 4px var(--color-available-glow);
 }
 
 .legend-color.seat-booked {
     background: var(--color-booked-gradient);
     border-color: var(--color-booked-border);
-    box-shadow: 0 0 5px var(--color-booked-glow);
+    box-shadow: 0 0 4px var(--color-booked-glow);
 }
 
 .legend-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     font-weight: 400;
 }
 
-/* Statistics panel */
+/* Statistics panel - Mobile First */
 .stats-container {
     display: flex;
-    gap: 20px;
+    gap: 12px;
     width: 100%;
     max-width: 400px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .stat-card {
     flex: 1;
     background: rgba(15, 23, 42, 0.4);
     border: 1px solid var(--bg-card-border);
-    padding: 12px;
-    border-radius: 12px;
+    padding: 10px;
+    border-radius: 10px;
     text-align: center;
     backdrop-filter: blur(10px);
 }
 
 .stat-value {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--text-primary);
 }
 
 .stat-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-top: 4px;
+    margin-top: 3px;
     display: block;
 }
 
-/* Sticky Bottom Control Section */
+/* Sticky Bottom Control Section - Mobile First */
 .control-section {
     position: fixed;
     bottom: 0;
@@ -332,7 +336,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 20px;
+    padding: 12px 15px;
     box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
     z-index: 100;
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -343,25 +347,26 @@ body {
     max-width: 600px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
 }
 
+/* Booking Form - Mobile First Grid Layout */
 .booking-form {
-    display: flex;
-    align-items: flex-end;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
     width: 100%;
 }
 
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    flex-grow: 1;
+    gap: 4px;
+    grid-column: 1 / span 2; /* Take full width on mobile */
 }
 
 .input-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: var(--text-secondary);
     text-transform: uppercase;
@@ -378,13 +383,13 @@ body {
 
 #seatInput {
     width: 100%;
-    padding: 12px 40px 12px 16px;
+    padding: 10px 35px 10px 12px;
     background-color: rgba(15, 23, 42, 0.6);
     border: 1.5px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
+    border-radius: 8px;
     color: var(--text-primary);
     font-family: var(--font-sans);
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     outline: none;
     transition: all 0.3s ease;
@@ -409,8 +414,8 @@ body {
 /* Input validation visual indicators */
 .validation-badge {
     position: absolute;
-    right: 15px;
-    font-size: 1rem;
+    right: 12px;
+    font-size: 0.9rem;
     pointer-events: none;
     transition: all 0.2s ease;
 }
@@ -427,25 +432,27 @@ body {
     font-weight: bold;
 }
 
-/* Submit and Reset Buttons */
+/* Submit and Reset Buttons - Mobile First Grid Placement */
 .btn-book {
-    padding: 12px 28px;
+    grid-column: 1;
+    width: 100%;
+    padding: 10px 15px;
     background: linear-gradient(135deg, #3b82f6, #1d4ed8);
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     color: #ffffff;
     font-family: var(--font-sans);
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.25s ease;
-    box-shadow: 0 4px 15px rgba(29, 78, 216, 0.3);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
     white-space: nowrap;
 }
 
 .btn-book:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(29, 78, 216, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(29, 78, 216, 0.5);
     background: linear-gradient(135deg, #60a5fa, #2563eb);
 }
 
@@ -454,13 +461,15 @@ body {
 }
 
 .btn-reset {
-    padding: 12px 20px;
+    grid-column: 2;
+    width: 100%;
+    padding: 10px 15px;
     background-color: transparent;
     border: 1.5px solid rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
+    border-radius: 8px;
     color: var(--text-secondary);
     font-family: var(--font-sans);
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -474,10 +483,10 @@ body {
 
 /* Inline Dynamic Error / Help Messages */
 .error-message {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--accent-error);
-    height: 16px;
-    margin-top: 4px;
+    height: 14px;
+    margin-top: 2px;
     font-weight: 500;
     transition: all 0.2s ease;
 }
@@ -491,7 +500,7 @@ body {
 @keyframes fadeInDown {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-15px);
     }
     to {
         opacity: 1;
@@ -502,7 +511,7 @@ body {
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
     to {
         opacity: 1;
@@ -522,39 +531,165 @@ body {
     }
 }
 
-/* Media Queries for Responsive Seat Sizing */
-@media (max-width: 900px) {
-    /* For smaller screens, allow scroll and slightly adjust padding */
-    .app-container {
-        padding: 15px;
-        padding-bottom: calc(var(--footer-height) + 25px);
+/* PROGRESSIVE ENHANCEMENT MEDIA QUERIES (Mobile-First) */
+
+/* Tablet Viewports (600px and up) */
+@media (min-width: 600px) {
+    :root {
+        --seat-size: 28px;
+        --grid-gap: 8px;
+        --footer-height: 110px;
     }
+
+    .app-container {
+        padding: 20px;
+        padding-bottom: calc(var(--footer-height) + 30px);
+    }
+
     .app-header {
+        margin-bottom: 30px;
+    }
+
+    .logo-icon {
+        font-size: 2rem;
+    }
+
+    .logo-text {
+        font-size: 2.2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .screen-container {
+        margin: 20px auto 45px auto;
+    }
+
+    .screen {
+        height: 18px;
+        border-top: 3px solid rgba(96, 165, 250, 0.8);
+        font-size: 0.65rem;
+        line-height: 18px;
+    }
+
+    .screen-glow {
+        height: 60px;
+    }
+
+    .seat-map-wrapper {
+        justify-content: center;
         margin-bottom: 20px;
     }
-    .screen-container {
+
+    .seat-grid {
+        grid-template-columns: 35px repeat(25, var(--seat-size)) 35px;
+        min-width: 820px;
+        padding: 10px 20px;
+    }
+
+    .grid-label {
+        font-size: 0.9rem;
+    }
+
+    .grid-label.column-header {
+        font-size: 0.75rem;
+    }
+
+    .seat {
+        font-size: 0.75rem;
+        border-radius: 6px;
+    }
+
+    .legend-container {
+        gap: 30px;
         margin-bottom: 30px;
+    }
+
+    .legend-color {
+        width: 18px;
+        height: 18px;
+    }
+
+    .legend-label {
+        font-size: 0.85rem;
+    }
+
+    .stats-container {
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        margin-top: 4px;
+    }
+
+    .control-section {
+        padding: 15px 20px;
+    }
+
+    /* Convert Booking Form to Inline Layout */
+    .booking-form {
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+    }
+
+    .input-group {
+        flex-grow: 1;
+    }
+
+    #seatInput {
+        padding: 12px 40px 12px 16px;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+
+    .validation-badge {
+        right: 15px;
+        font-size: 1rem;
+    }
+
+    .btn-book {
+        width: auto;
+        padding: 12px 28px;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+
+    .btn-reset {
+        width: auto;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+
+    .error-message {
+        font-size: 0.8rem;
+        height: 16px;
+        margin-top: 4px;
     }
 }
 
-@media (max-width: 500px) {
-    /* Smaller screens details */
-    .app-header .logo-text {
-        font-size: 1.8rem;
+/* Large Desktop Viewports (1024px and up) */
+@media (min-width: 1024px) {
+    :root {
+        --seat-size: 32px;
+        --grid-gap: 9px;
     }
-    .booking-form {
-        gap: 8px;
-    }
-    .btn-book {
-        padding: 12px 18px;
-        font-size: 0.9rem;
-    }
-    .btn-reset {
-        padding: 12px 12px;
-        font-size: 0.9rem;
-    }
-    #seatInput {
-        padding: 12px 30px 12px 12px;
-        font-size: 0.9rem;
+
+    .seat-grid {
+        grid-template-columns: 40px repeat(25, var(--seat-size)) 40px;
+        min-width: 960px;
     }
 }
