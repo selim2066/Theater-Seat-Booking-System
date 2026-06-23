@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineReserve - Premium Theater Seat Booking</title>
+    <!-- Modern Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <div class="logo-container">
+                <span class="logo-icon">🎬</span>
+                <h1 class="logo-text">CineReserve</h1>
+            </div>
+            <p class="subtitle">Experience Cinema in Comfort</p>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Screen Representation -->
+            <div class="screen-container">
+                <div class="screen-glow"></div>
+                <div class="screen">SCREEN</div>
+            </div>
+
+            <!-- Seat Map Wrapper (Scrollable on tiny devices) -->
+            <div class="seat-map-wrapper">
+                <!-- Programmatically filled grid of seats -->
+                <div class="seat-grid" id="seatGrid"></div>
+            </div>
+
+            <!-- Legend Section -->
+            <div class="legend-container">
+                <div class="legend-item">
+                    <div class="legend-color seat-available"></div>
+                    <span class="legend-label">Available</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color seat-booked"></div>
+                    <span class="legend-label">Booked</span>
+                </div>
+            </div>
+
+            <!-- Statistics and Quick Info -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <span class="stat-value" id="statsAvailable">100</span>
+                    <span class="stat-label">Available Seats</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="statsBooked">0</span>
+                    <span class="stat-label">Booked Seats</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Dedicated Control Section -->
+        <footer class="control-section">
+            <div class="control-card">
+                <form class="booking-form" id="bookingForm" novalidate>
+                    <div class="input-group">
+                        <label for="seatInput" class="input-label">Enter Seat Code</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="seatInput" 
+                                placeholder="e.g. B12" 
+                                autocomplete="off" 
+                                required
+                            >
+                            <span class="validation-badge" id="validationBadge"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-book" id="bookBtn">
+                        <span>Book Seat</span>
+                    </button>
+                    <button type="button" class="btn-reset" id="resetBtn" title="Reset All Bookings">
+                        <span>Reset</span>
+                    </button>
+                </form>
+                <div class="error-message" id="errorMessage"></div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript logic -->
+    <script src="app.js"></script>
+</body>
+</html>
